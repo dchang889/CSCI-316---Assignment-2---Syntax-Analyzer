@@ -1,0 +1,17 @@
+	<START> → procedure ident is <DECPART> begin <SEQOFSTMT> end ; EOI
+	<SEQOFSTMT> → <STATEMENT> { <STATEMENT> }
+	<DECPART> → <OBJECTDEC> { <OBJECTDEC> }
+	<OBJECTDEC> → <IDENTLIST> : ( boolean | integer ) ;
+	<IDENTLIST> → ident { , <IDENTLIST> }
+	<STATEMENT> → null ;
+	<STATEMENT> → ident := <EXPRESSION> ;
+	<STATEMENT> → if <CONDITION> then <SEQOFSTMT>
+	 [ else <SEQOFSTMT> ] end if ;
+	<STATEMENT> → while <CONDITION> loop <SEQOFSTMT> end loop ;
+	<STATEMENT> → ( get | put ) ( <IDENTLIST> ) ;
+	<STATEMENT> → newline ;
+	<CONDITION> → <EXPRESSION>
+	<EXPRESSION> → <SIMPEXPR> [ ( = | /= | < | <= | > | >= ) <SIMPEXPR> ]
+	<SIMPEXPR> → <TERM> { ( + | - ) <TERM> }
+	<TERM> → <PRIMARY> { ( * | / | rem ) <PRIMARY> }
+	<PRIMARY> → ( <EXPRESSION> ) | ident | numlit | true | false
